@@ -6,7 +6,7 @@
     <ul>
         {% for product in products %}
             <li>
-{#                <a href="{% url 'product-detail' product_id=product.id %}" style="color: black; text-decoration: none;">{{ product.title }} / price : {{ product.price }}</a>#}
+{#                <a href="{% url 'product-detail' slug=product.slug %}" style="color: black; text-decoration: none;">{{ product.title }} / price : {{ product.price }}</a>#}
                 <a href="{{ product.get_absolute_url }}" style="color: black; text-decoration: none;">{{ product.title }} / price : {{ product.price }}</a>
             </li>
         {% endfor %}
