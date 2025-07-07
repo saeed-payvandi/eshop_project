@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Product
+from .models import Product, ProductCategory
 from django.http import Http404
 from django.db.models import Avg, Min, Max
 
@@ -7,6 +7,10 @@ from django.db.models import Avg, Min, Max
 # Create your views here.
 
 def product_list(request):
+    # console = ProductCategory(title='پلی استیشن', url_title='playstation')
+    # console.save()
+    # ps4 = Product(title='play station 4', price=17000000, category= console, short_description='ps_4', rating=4)
+    # ps4.save()
     products = Product.objects.all().order_by('-title')
     number_of_products = products.count()
     avg_rating = products.aggregate(Avg("rating"), Avg("price"), Min("price"), Max("price"))
