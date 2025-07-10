@@ -14,9 +14,29 @@ class ProductCategory(models.Model):
         return f'{self.title} - {self.url_title}'
 
 
+class ProductInformation(models.Model):
+    color = models.CharField(max_length=200, verbose_name='رنگ')
+    size = models.CharField(max_length=200, verbose_name='سایز')
+
+    def __str__(self):
+        return f'{self.size} - {self.color}'
+
+
 class Product(models.Model):
     title = models.CharField(max_length=300)
-    category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE, null=True, related_name='products')
+    product_information = models.OneToOneField(
+        ProductInformation,
+        on_delete=models.CASCADE,
+        null=True,
+        related_name='product_information',
+        verbose_name='اطلاعات تکمیلی'
+        ,blank=True)
+    category = models.ForeignKey(
+        ProductCategory,
+        on_delete=models.CASCADE,
+        null=True,
+        related_name='products',
+        verbose_name='دسته بندی')
     price = models.IntegerField()
     rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], default=0)
     short_description = models.CharField(max_length=360, null=True)
@@ -30,7 +50,7 @@ class Product(models.Model):
     def save(self, *args, **kwargs):
         # self.slug = slugify(self.title)
         # self.slug = slugify(self.title + ' id ' + self.id)
-        super().save(*args, **kwargs) # for generate id to save in slug
+        super().save(*args, **kwargs)  # for generate id to save in slug
         self.slug = slugify(f"{self.title} id {self.id}")
         super().save(*args, **kwargs)
 

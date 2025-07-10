@@ -9,7 +9,7 @@ class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields = {
         'slug': ['title']
     }
-    list_display = ['__str__', 'price', 'rating', 'is_active', 'category']
+    list_display = ['__str__', 'price', 'rating', 'is_active', 'category', 'product_information']
     list_filter = ['rating', 'is_active']
     list_editable = ['rating', 'is_active']
 
@@ -19,5 +19,11 @@ class ProductCategoryAdmin(admin.ModelAdmin):
     pass
 
 
+@admin.register(models.ProductInformation)
+class ProductInformationAdmin(admin.ModelAdmin):
+    pass
+
+
 # admin.site.register(models.Product, ProductAdmin)
 # admin.site.register(models.ProductCategory, ProductCategoryAdmin)
+# admin.site.register(models.ProductInformation)
