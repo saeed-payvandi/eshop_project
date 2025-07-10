@@ -24,6 +24,12 @@ class ProductInformationAdmin(admin.ModelAdmin):
     pass
 
 
+@admin.register(models.ProductTag)
+class ProductTagAdmin(admin.ModelAdmin):
+    pass
+
+
 # admin.site.register(models.Product, ProductAdmin)
 # admin.site.register(models.ProductCategory, ProductCategoryAdmin)
 # admin.site.register(models.ProductInformation)
+# admin.site.register(models.ProductTag)

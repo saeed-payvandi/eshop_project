@@ -6,6 +6,18 @@ from django.utils.text import slugify
 
 # Create your models here.
 
+
+class ProductTag(models.Model):
+    tag = models.CharField(max_length=300, verbose_name='عنوان')
+
+    def __str__(self):
+        return self.tag
+
+    class Meta:
+        verbose_name = 'تگ محصول'
+        verbose_name_plural = 'تگ های محصولات'
+
+
 class ProductCategory(models.Model):
     title = models.CharField(max_length=300, verbose_name='عنوان')
     url_title = models.CharField(max_length=300, verbose_name='عنوان در url')
@@ -45,6 +57,7 @@ class Product(models.Model):
         null=True,
         related_name='products',
         verbose_name='دسته بندی')
+    product_tags = models.ManyToManyField(ProductTag, verbose_name='تگ های محصول')
     price = models.IntegerField(verbose_name='قیمت')
     rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], default=0)
     short_description = models.CharField(max_length=360, null=True)
