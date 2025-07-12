@@ -13,11 +13,11 @@ def product_list(request):
     # ps4.save()
     products = Product.objects.all().order_by('-title')
     number_of_products = products.count()
-    avg_rating = products.aggregate(Avg("rating"), Avg("price"), Min("price"), Max("price"))
+    # avg_rating = products.aggregate(Avg("rating"), Avg("price"), Min("price"), Max("price"))
     context = {
         'products': products,
         'total_number_of_products': number_of_products,
-        'average_ratings': avg_rating,
+        # 'average_ratings': avg_rating,
     }
 
     return render(request, 'product_module/product_list.html', context)
