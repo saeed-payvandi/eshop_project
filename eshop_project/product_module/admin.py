@@ -17,7 +17,6 @@ class ProductAdmin(admin.ModelAdmin):
     list_editable = ['price', 'is_active']
 
 
-
 @admin.register(models.ProductCategory)
 class ProductCategoryAdmin(admin.ModelAdmin):
     pass
