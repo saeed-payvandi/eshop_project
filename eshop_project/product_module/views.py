@@ -11,12 +11,13 @@ def product_list(request):
     # console.save()
     # ps4 = Product(title='play station 4', price=17000000, category= console, short_description='ps_4', rating=4)
     # ps4.save()
-    products = Product.objects.all().order_by('-title')
-    number_of_products = products.count()
+    # products = Product.objects.all().order_by('-title')
+    # number_of_products = products.count()
     # avg_rating = products.aggregate(Avg("rating"), Avg("price"), Min("price"), Max("price"))
+    products = Product.objects.all().order_by('-price')[:5]
     context = {
         'products': products,
-        'total_number_of_products': number_of_products,
+        # 'total_number_of_products': number_of_products,
         # 'average_ratings': avg_rating,
     }
 
