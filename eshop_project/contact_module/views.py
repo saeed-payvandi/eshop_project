@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse
+# from django.urls import reverse
 from .forms import ContactUsForms
 
 
@@ -18,13 +18,17 @@ def contact_us_page(request):
     #     print(request.POST['subject'])
     #     print(request.POST['message'])
     #     return redirect(reverse('home_page'))
+
+    # contact_form = ContactUsForms(request.POST or None)
+    
     if request.method == 'POST':
         contact_form = ContactUsForms(request.POST)
         if contact_form.is_valid():
             print(contact_form.cleaned_data)
             return redirect('home_page')
+    else:
+        contact_form = ContactUsForms()
 
-    contact_form = ContactUsForms()
     return render(request, 'contact_module/contact_us_page.html', {
         # 'has_error': False,
         'contact_form': contact_form,
