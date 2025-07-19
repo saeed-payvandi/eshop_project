@@ -20,7 +20,8 @@
               {{ contact_form.email }}
               {{ contact_formm.email.errors}}
             </div>
-            <div class="form-group col-md-6 {% if contact_form.full_name.errors %} text-danger {% endif %}">
+{#            <div class="form-group col-md-6 {% if contact_form.full_name.errors %} text-danger {% endif %}">#}
+            <div class="form-group col-md-6">
               {{ contact_form.full_name.label_tag }}
               {{ contact_form.full_name }}
               {{ contact_form.full_name.errors}}
