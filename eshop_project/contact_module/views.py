@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from .forms import ContactUsForm, ContactUsModelForm
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, CreateView
 from django.urls import reverse
 from .models import ContactUs
 
@@ -9,14 +9,23 @@ from .models import ContactUs
 # Create your views here.
 
 
-class ContactUsView(FormView):
+class ContactUsView(CreateView):
+    # model = ContactUs
+    # fields = ['']
     template_name = 'contact_module/contact_us_page.html'
     form_class = ContactUsModelForm
     success_url = '/contact-us/'
 
-    def form_valid(self, form):
-        form.save()
-        return super().form_valid(form)
+
+
+# class ContactUsView(FormView):
+#     template_name = 'contact_module/contact_us_page.html'
+#     form_class = ContactUsModelForm
+#     success_url = '/contact-us/'
+
+#     def form_valid(self, form):
+#         form.save()
+#         return super().form_valid(form)
 
 
 # class ContactUsView(View):
