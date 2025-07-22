@@ -17,6 +17,14 @@ class ContactUsView(CreateView):
     success_url = '/contact-us/'
 
 
+class CreateProfileView(View):
+    def get(self, request):
+        return render(request, 'contact_module/create_profile_page.html')
+
+    def post(self, request):
+        print(request.FILES)
+        return redirect('/contact-us/create-profile')
+
 
 # class ContactUsView(FormView):
 #     template_name = 'contact_module/contact_us_page.html'
