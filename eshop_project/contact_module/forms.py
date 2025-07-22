@@ -16,7 +16,7 @@ class ContactUsForm(forms.Form):
             'placeholder': 'نام و نام خانوادگی',
         }))
     email = forms.EmailField(
-        label='ایمیل', 
+        label='ایمیل',
         # required=False,
         widget=forms.EmailInput(attrs={
             'class': 'form-control',
@@ -30,7 +30,7 @@ class ContactUsForm(forms.Form):
             'placeholder': 'عنوان',
         }))
     message = forms.CharField(
-        label='متن پیام', 
+        label='متن پیام',
         # required=False,
         widget=forms.Textarea(attrs={
             'class': 'form-control',
@@ -73,3 +73,8 @@ class ContactUsModelForm(forms.ModelForm):
                 'required': 'نام و نام خانوادگی اجباری میباشد. لطفا وارد کنید',
             },
         }
+
+
+# class ProfileForm(forms.Form):
+#     # user_image = forms.FileField()
+#     user_image = forms.ImageField()
