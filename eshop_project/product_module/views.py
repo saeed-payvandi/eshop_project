@@ -1,8 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product, ProductCategory
 from django.http import Http404
 from django.db.models import Avg, Min, Max
-from django.views.generic.base import TemplateView
+from django.views.generic.base import TemplateView, View
 from django.views.generic import ListView, DetailView
 
 
@@ -25,8 +25,34 @@ class ProductDetailView(DetailView):
     template_name = 'product_module/product_detail.html'
     model = Product
 
-    def get_queryset(self):
-        pass
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        loaded_product = self.object
+        request = self.request
+        favorite_product_id = request.session['product_favorite']
+        context['is_favorite'] = favorite_product_id == str(loaded_product.id)
+        return context
+
+
+
+
+
+class AddProductFavorite(View):
+    def post(self, request):
+        # print(dir(request))
+        # print("GET:", request.GET)
+        # print("POST:", request.POST)
+        # print("BODY:", request.body)
+        # print("FILES:", request.FILES)
+        # print("COOKIES:", request.COOKIES)
+        # print("META:", request.META)
+        # print("USER:", request.user)
+        product_id = request.POST['product_id']
+        product = Product.objects.get(pk=product_id)
+        request.session["product_favorite"] = product_id
+        return redirect(product.get_absolute_url())
+
+
 
 
 # class ProductListView(TemplateView):
