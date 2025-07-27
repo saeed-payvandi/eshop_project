@@ -70,6 +70,7 @@ class Product(models.Model):
         blank=True)
     category = models.ManyToManyField(ProductCategory, related_name='product_categories', verbose_name='دسته بندی ها')
     # product_tags = models.ManyToManyField(ProductTag, verbose_name='تگ های محصول')
+    image = models.ImageField(upload_to='images/products', null=True, blank=True, verbose_name='تصویر مجصول')
     price = models.IntegerField(verbose_name='قیمت')
     # rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], default=0)
     short_description = models.CharField(max_length=360, db_index=True, null=True, verbose_name='توضیحات کوتاه')
