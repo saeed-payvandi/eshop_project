@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from .forms import RegisterForm
+from .forms import RegisterForm, LoginForm
 from .models import User
 from django.utils.crypto import get_random_string
 from django.urls import reverse
+from django.http import Http404
 # from django.contrib.auth import get_user_model
 
 # Create your views here.
@@ -38,9 +39,6 @@ class RegisterView(View):
                 # todo: send email active code
                 return redirect(reverse('login_page'))
 
-
-
-
         context = {
             'register_form': register_form,
         }
@@ -49,11 +47,33 @@ class RegisterView(View):
 
 class LoginView(View):
     def get(self, request):
+        login_form = LoginForm()
         context = {
-            'login_form': None,
+            'login_form': login_form,
         }
-        return render(request,'account_module/register.html', context)
+        return render(request,'account_module/login.html', context)
 
     def post(self, request):
         pass
+
+
+class ActivateAccountView(View):
+    def get(self, request, email_active_code):
+        user: User = User.objects.filter(email_active_code__iexact=email_active_code).first()
+
+        if user is not None:
+            if not user.is_active:
+                user.is_active = True
+                user.email_active_code = get_random_string(72)
+                user.save()
+                # todo: show success message to user
+                return redirect(reverse('login_page'))
+            else:
+                # todo: show your account was activated to user
+                pass
+
+        raise Http404
+
+
+
 
