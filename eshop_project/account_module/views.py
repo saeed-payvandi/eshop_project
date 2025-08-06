@@ -4,7 +4,8 @@ from .forms import RegisterForm, LoginForm
 from .models import User
 from django.utils.crypto import get_random_string
 from django.urls import reverse
-from django.http import Http404
+from django.http import HttpRequest, Http404
+from django.contrib.auth import login, logout
 # from django.contrib.auth import get_user_model
 
 # Create your views here.
@@ -53,8 +54,29 @@ class LoginView(View):
         }
         return render(request,'account_module/login.html', context)
 
-    def post(self, request):
-        pass
+    def post(self, request: HttpRequest):
+        login_form = LoginForm(request.POST)
+        if login_form.is_valid():
+            user_email = login_form.cleaned_data.get('email')
+            user_pass = login_form.cleaned_data.get('password')
+            user: User = User.objects.filter(email__iexact=user_email).first()
+            if user is not None:
+                if not user.is_active:
+                    login_form.add_error('email', 'حساب کاربری شما فعال نشده است')
+                else:
+                    is_password_correct = user.check_password(user_pass)
+                    if is_password_correct:
+                        login(request, user)
+                        return redirect(reverse('home_page'))
+                    else:
+                        login_form.add_error('email', 'کاربری با مشخصات وارد شده یافت نشد')
+            else:
+                login_form.add_error('email', 'کاربری با مشخصات وارد شده یافت نشد')
+
+        context = {
+            'login_form': login_form,
+        }
+        return render(request, 'account_module/login.html', context)
 
 
 class ActivateAccountView(View):
