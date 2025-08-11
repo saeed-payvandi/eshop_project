@@ -2,5 +2,6 @@ asgiref==3.8.1
 Django==5.2.3
 django-render-partial==0.4
 pillow==11.3.0
+python-dotenv==1.1.1
 sqlparse==0.5.3
 tzdata==2025.2
