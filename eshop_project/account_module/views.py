@@ -6,6 +6,7 @@ from django.utils.crypto import get_random_string
 from django.urls import reverse
 from django.http import HttpRequest, Http404
 from django.contrib.auth import login, logout
+from utils.email_service import send_email
 # from django.contrib.auth import get_user_model
 
 # Create your views here.
@@ -38,6 +39,7 @@ class RegisterView(View):
                 new_user.set_password(user_password)
                 new_user.save()
                 # todo: send email active code
+                send_email('فعالسازی حساب کاربری', new_user.email, {'user': new_user}, 'emails/active_account.html')
                 return redirect(reverse('login_page'))
 
         context = {
