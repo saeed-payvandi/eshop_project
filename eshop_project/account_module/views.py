@@ -38,8 +38,7 @@ class RegisterView(View):
                     email_active_code=get_random_string(72))
                 new_user.set_password(user_password)
                 new_user.save()
-                # todo: send email active code
-                send_email('فعالسازی حساب کاربری', new_user.email, {'user': new_user}, 'emails/active_account.html')
+                send_email('فعالسازی حساب کاربری', new_user.email, {'user': new_user}, 'emails/activate_account.html')
                 return redirect(reverse('login_page'))
 
         context = {
@@ -99,7 +98,7 @@ class ActivateAccountView(View):
         raise Http404
 
 
-class ForgetPassword(View):
+class ForgetPasswordView(View):
     def get(self, request: HttpRequest):
         forget_pass_form = ForgotPasswordForm()
         context = {
@@ -113,8 +112,8 @@ class ForgetPassword(View):
             user_email = forget_pass_form.cleaned_data.get('email')
             user: User = User.objects.filter(email__iexact=user_email).first()
             if user is not None:
-                # send reset password email to user
-                pass
+                send_email('بازیابی کلمه عبور', user.email, {'user': user}, 'emails/forgot_password.html')
+                return redirect(reverse('home_page'))
 
         context = {
             'forget_pass_form': forget_pass_form,
@@ -122,7 +121,7 @@ class ForgetPassword(View):
         return render(request, 'account_module/forgot_password.html', context)
 
 
-class ResetPassword(View):
+class ResetPasswordView(View):
     def get(self, request: HttpRequest, active_code):
         user: User = User.objects.filter(email_active_code__iexact=active_code).first()
         if user is None:
@@ -154,5 +153,11 @@ class ResetPassword(View):
             'user': user,
         }
         return render(request, 'account_module/reset_password.html', context)
+
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect(reverse('login_page'))
 
 
