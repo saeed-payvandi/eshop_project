@@ -29,8 +29,8 @@ class HomeView(TemplateView):
 
 def site_header_component(request):
     context = {
-        'link': 'آموزش جنگو'
-    }
+
+            }
     return render(request, 'shared/site_header_component.html', context)
 
 
