@@ -12,7 +12,7 @@ class ArticleCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    pass
-
+    list_display = ['title', 'slug', 'is_active']
+    list_editable = ['is_active']
 
 
