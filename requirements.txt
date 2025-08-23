@@ -3,5 +3,6 @@ Django==5.2.3
 django-render-partial==0.4
 pillow==11.3.0
 python-dotenv==1.1.1
+sorl-thumbnail==12.11.0
 sqlparse==0.5.3
 tzdata==2025.2
