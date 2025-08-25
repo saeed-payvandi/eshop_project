@@ -1,5 +1,8 @@
 {% extends 'shared/_layout.html' %}
 {% load thumbnail %}
+{% load poll_extras %}
+{#{% load jalali_tags %}#}
+
 
 {% block title %}لیست مقالات{% endblock %}
 
@@ -13,6 +16,8 @@
 						<h2 class="title text-center">آخریـن اخبـار</h2>
 
 						{% for article in object_list %}
+{#                            {{ article.create_date | to_jalali }}  test for jalali_tags#}
+{#                            {{ 'jalali' | cut:'j' }}  test for cut method in pool_extras#}
 						<div class="single-blog-post">
 							<h3>{{ article.title }}</h3>
 							<div class="post-meta">
@@ -21,7 +26,8 @@
                                         <li><i class="fa fa-user"></i>{{ article.author }}</li>
                                     {% endif %}
 									<li><i class="fa fa-clock-o"></i>{{ article.get_jalali_create_time }}</li>
-									<li><i class="fa fa-calendar"></i>{{ article.get_jalali_create_date }}</li>
+   									<li><i class="fa fa-calendar"></i>{{ article.create_date | show_jalali_date }}</li>
+{#									<li><i class="fa fa-calendar"></i>{{ article.get_jalali_create_date }}</li>#}
 								</ul>
 								<span>
 										<i class="fa fa-star"></i>

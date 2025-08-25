@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'contact_module',
     'site_module',
     'article_module',
+    'polls',
     # External apps:
     'django_render_partial',
     'sorl.thumbnail',

@@ -21,9 +21,9 @@ class ArticlesListView(ListView):
     paginate_by = 5
     template_name = 'article_module/articles_page.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        # context['date'] = datetime2jalali(self.request.user.date_joined).strftime('%y/%m/%d _ %H:%M:%S')
-        # context['date'] = datetime2jalali(self.request.user.date_joined)
-        context['date'] = date2jalali(self.request.user.date_joined)
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     # context['date'] = datetime2jalali(self.request.user.date_joined).strftime('%y/%m/%d _ %H:%M:%S')
+    #     # context['date'] = datetime2jalali(self.request.user.date_joined)
+    #     context['date'] = date2jalali(self.request.user.date_joined)
+    #     return context
