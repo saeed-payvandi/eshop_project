@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from .models import Article, ArticleCategory
 from django.http import HttpRequest
 from jalali_date import datetime2jalali, date2jalali
@@ -24,6 +25,7 @@ class ArticlesListView(ListView):
 
     def get_queryset(self):
         query = super().get_queryset()
+        query = query.filter(is_active=True)
         # print(self.kwargs)
         category_name = self.kwargs.get('category')
         if category_name is not None:
@@ -36,6 +38,16 @@ class ArticlesListView(ListView):
     #     # context['date'] = datetime2jalali(self.request.user.date_joined)
     #     context['date'] = date2jalali(self.request.user.date_joined)
     #     return context
+
+
+class ArticleDetailView(DetailView):
+    model = Article
+    template_name = 'article_module/article_detail_page.html'
+
+    def get_queryset(self):
+        query = super().get_queryset()
+        query = query.filter(is_active=True)
+        return query
 
 
 def article_categories_component(request: HttpRequest):

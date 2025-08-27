@@ -46,16 +46,25 @@
 							<p>
                                 {{ article.short_description }}
                             </p>
-							<a class="btn btn-primary" href="">ادامـه مطلب</a>
+							<a class="btn btn-primary" href="{% url 'articles_detail' pk=article.pk %}">ادامـه مطلب</a>
 						</div>
                         {% endfor %}
 
 						<div class="pagination-area">
 							<ul class="pagination">
-								<li><a href="" class="active">1</a></li>
-								<li><a href="">2</a></li>
-								<li><a href="">3</a></li>
-								<li><a href=""><i class="fa fa-angle-double-right"></i></a></li>
+{#								<li><a href="" class="active">1</a></li>#}
+{#								<li><a href="">2</a></li>#}
+{#								<li><a href="">3</a></li>#}
+{#								<li><a href=""><i class="fa fa-angle-double-right"></i></a></li>#}
+                                {% if page_obj.has_previous %}
+                                    <li><a href="?page={{ page_obj.previous_page_number }}">قبلی</a></li>
+                                {% endif %}
+                                {% for page_number in paginator.page_range %}
+                                    <li><a class="{% if page_obj.number == page_number %}active{% endif %}" href="?page={{ page_number }}">{{ page_number }}</a></li>
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                    <li><a href="?page={{ page_obj.next_page_number }}">بعدی</a></li>
+                                {% endif %}
 							</ul>
 						</div>
 					</div>
