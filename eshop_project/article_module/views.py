@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.views import View
 from django.views.generic.list import ListView
-from .models import Article
+from .models import Article, ArticleCategory
+from django.http import HttpRequest
 from jalali_date import datetime2jalali, date2jalali
 
 # Create your views here.
@@ -21,9 +22,25 @@ class ArticlesListView(ListView):
     paginate_by = 5
     template_name = 'article_module/articles_page.html'
 
+    def get_queryset(self):
+        query = super().get_queryset()
+        # print(self.kwargs)
+        category_name = self.kwargs.get('category')
+        if category_name is not None:
+            query = query.filter(selected_categories__url_title__iexact=category_name)
+        return query
+
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
     #     # context['date'] = datetime2jalali(self.request.user.date_joined).strftime('%y/%m/%d _ %H:%M:%S')
     #     # context['date'] = datetime2jalali(self.request.user.date_joined)
     #     context['date'] = date2jalali(self.request.user.date_joined)
     #     return context
+
+
+def article_categories_component(request: HttpRequest):
+    article_main_categories = ArticleCategory.objects.filter(is_active=True, parent_id=None)
+    context = {
+        'main_categories': article_main_categories,
+    }
+    return render(request, 'article_module/components/article_categories_components.html', context)
