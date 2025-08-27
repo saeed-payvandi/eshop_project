@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.http import HttpRequest
-from .models import ArticleCategory, Article
+from .models import ArticleCategory, Article, ArticleComment
 
 # Register your models here.
 
@@ -24,5 +24,10 @@ class ArticleAdmin(admin.ModelAdmin):
         if not change:
             obj.author = request.user
         return super().save_model(request, obj, form, change)
+
+
+@admin.register(ArticleComment)
+class ArticleCommentAdmin(admin.ModelAdmin):
+    pass
 
 

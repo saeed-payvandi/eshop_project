@@ -43,3 +43,17 @@ class Article(models.Model):
     class Meta:
         verbose_name = 'مقاله'
         verbose_name_plural = 'مقالات'
+
+
+class ArticleComment(models.Model):
+    article = models.ForeignKey(Article, on_delete=models.CASCADE, verbose_name='مقاله')
+    parent = models.ForeignKey('ArticleComment', null=True, blank=True, on_delete=models.CASCADE, verbose_name='والد')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='کاربر')
+    create_date = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ثبت')
+    text = models.TextField(verbose_name='متن نظر')
+
+    class Meta:
+        verbose_name = 'نظر مقاله'
+        verbose_name_plural = 'نظرات مقاله'
+
+
