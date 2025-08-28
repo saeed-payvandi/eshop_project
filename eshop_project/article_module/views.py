@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import View
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from .models import Article, ArticleCategory
+from .models import Article, ArticleCategory, ArticleComment
 from django.http import HttpRequest
 from jalali_date import datetime2jalali, date2jalali
 
@@ -48,6 +48,16 @@ class ArticleDetailView(DetailView):
         query = super().get_queryset()
         query = query.filter(is_active=True)
         return query
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        article: Article = kwargs.get('object')
+        # print('kwargs:', kwargs)
+        # print('object:', self.object.pk)
+        # article = kwargs['object']
+        # print(article)
+        context['comments'] = ArticleComment.objects.filter(article_id=article.id, parent=None).prefetch_related('articlecomment_set')
+        return context
 
 
 def article_categories_component(request: HttpRequest):

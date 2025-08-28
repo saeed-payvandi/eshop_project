@@ -28,6 +28,6 @@ class ArticleAdmin(admin.ModelAdmin):
 
 @admin.register(ArticleComment)
 class ArticleCommentAdmin(admin.ModelAdmin):
-    pass
+    list_display = ['user', 'create_date', 'parent']
 
 

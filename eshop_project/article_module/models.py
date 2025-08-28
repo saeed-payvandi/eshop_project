@@ -52,6 +52,9 @@ class ArticleComment(models.Model):
     create_date = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ ثبت')
     text = models.TextField(verbose_name='متن نظر')
 
+    def __str__(self):
+        return str(self.user)
+
     class Meta:
         verbose_name = 'نظر مقاله'
         verbose_name_plural = 'نظرات مقاله'
