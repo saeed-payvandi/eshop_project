@@ -3,7 +3,7 @@ from django.views import View
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from .models import Article, ArticleCategory, ArticleComment
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from jalali_date import datetime2jalali, date2jalali
 
 # Create your views here.
@@ -66,3 +66,8 @@ def article_categories_component(request: HttpRequest):
         'main_categories': article_main_categories,
     }
     return render(request, 'article_module/components/article_categories_components.html', context)
+
+
+def add_article_comment(request: HttpRequest):
+    print(request.GET)
+    return HttpResponse('response')
