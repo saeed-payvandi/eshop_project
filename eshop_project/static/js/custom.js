@@ -12,7 +12,16 @@ function sendArticleComment(articleId){
         parent_id: parentId,
     }).then(res => {
         console.log(res);
-        location.reload();
+        // location.reload();
+        // document.getElementById('comments_area').innerHTML = res;
+        $('#comments_area').html(res);        
+        $('#commentText').val('');
+        $('#parent_id').val('');
+        if(parentId!==null && parentId!==''){
+            document.getElementById('single_comment_box_'+ parentId).scrollIntoView({behavior: "smooth"});
+        }else{
+            document.getElementById('comments_area').scrollIntoView({behavior: "smooth"});
+        }
     });
 }
 
