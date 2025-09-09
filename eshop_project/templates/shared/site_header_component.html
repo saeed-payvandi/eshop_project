@@ -50,7 +50,7 @@
                                         <li><a href="/admin"><i class="fa fa-user"></i> پنل ادمین</a></li>
                                     {% endif %}
                                     <li><a href="login.html"><i class="fa fa-shopping-cart"></i> سبد خرید</a></li>
-                                    <li><a href="login.html"><i class="fa fa-user"></i> پنل کاربری</a></li>
+                                    <li><a href="{% url 'user_panel_dashboard' %}"><i class="fa fa-user"></i> پنل کاربری</a></li>
                                     <li><a href="{% url "logout_page" %}"><i class="fa fa-sign-out"></i> خروج</a></li>
                                 {% else %}
                                     <li><a href="{% url "register_page" %}"><i class="fa fa-user-plus"></i> ثبت نام</a></li>
@@ -91,7 +91,7 @@
                                 </li>
 								<li class="dropdown"><a href="#">فروشگـاه<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">محصولات</a></li>
+                                        <li><a href="{% url 'product-list' %}">محصولات</a></li>
 										<li><a href="product-details.html">جزئیات محصولات</a></li>
 										<li><a href="checkout.html">پرداخت</a></li>
 										<li><a href="cart.html">سبـد خریـد</a></li>
