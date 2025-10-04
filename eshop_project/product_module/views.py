@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Product, ProductCategory
-from django.http import Http404
+from django.http import Http404, HttpRequest
 from django.db.models import Avg, Min, Max
 from django.views.generic.base import TemplateView, View
 from django.views.generic import ListView, DetailView
@@ -16,11 +16,13 @@ class ProductListView(ListView):
     ordering = ['-price']
     paginate_by = 6
 
-    # def get_queryset(self):
-    #     # base_query = super(ProductListView, self).get_queryset()
-    #     base_query = super().get_queryset()
-    #     data = base_query.filter(is_active=True)
-    #     return data
+    def get_queryset(self):
+        query = super(ProductListView, self).get_queryset()
+        # print(self.kwargs)
+        category_name = self.kwargs.get('cat')
+        if category_name is not None:
+            query = query.filter(category__url_title__iexact=category_name)
+        return query
 
 
 class ProductDetailView(DetailView):
@@ -54,6 +56,13 @@ class AddProductFavorite(View):
         request.session["product_favorites"] = product_id
         return redirect(product.get_absolute_url())
 
+
+def product_categories_component(request: HttpRequest):
+    product_categories = ProductCategory.objects.filter(is_active=True, is_delete=False)
+    context = {
+        'categories': product_categories,
+    }
+    return render(request, 'product_module/components/product_categories_component.html', context)
 
 
 
