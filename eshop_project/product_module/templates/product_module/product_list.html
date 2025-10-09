@@ -26,15 +26,15 @@
                                 {#							<li><a href="">3</a></li>#}
                                 {#							<li><a href="">»</a></li>#}
                                 {% if page_obj.has_previous %}
-                                    <li><a href="?page={{ page_obj.previous_page_number }}">قبلی</a></li>
+                                    <li><a class="cursor-pointer" onclick="fillPage({{ page_obj.previous_page_number }})">قبلی</a></li>
                                 {% endif %}
                                 {% for pageNumber in paginator.page_range %}
                                     <li class="{% if page_obj.number == pageNumber %}active{% endif %}">
-                                        <a href="?page={{ pageNumber }}">{{ pageNumber }}</a>
+                                        <a class="cursor-pointer" onclick="fillPage({{ pageNumber }})">{{ pageNumber }}</a>
                                     </li>
                                 {% endfor %}
                                 {% if page_obj.has_next %}
-                                    <li><a href="?page={{ page_obj.next_page_number }}">بعدی</a></li>
+                                    <li><a class="cursor-pointer" onclick="fillPage({{ page_obj.next_page_number }})">بعدی</a></li>
                                 {% endif %}
                             </ul>
                         </div><!--features_items-->
@@ -58,7 +58,7 @@
 								 <input
                                          type="text"
                                          class="span2"
-                                         value=""
+                                         value="{{ start_price }},{{ end_price }}"
                                          data-slider-min="0"
                                          data-slider-max="{{ db_max_price }}"
                                          data-slider-step="1000"
@@ -68,6 +68,14 @@
 								 <b>{{ db_max_price }}</b> <b class="pull-left">0</b>
 							</div>
 						</div><!--/price-range-->
+                        <div>
+                            <form id="filter_form" action="" method="get" >
+                                <input type="hidden" name="page" id="page" value="{{ page_obj.number }}">
+                                <input id="start_price" type="hidden" name="start_price" value="{{ start_price }}">
+                                <input id="end_price" type="hidden" name="end_price" value="{{ end_price }}">
+                            </form>
+                                <button class="btn btn-success btn-block" onclick="filterProducts()">فیلتر</button>
+                        </div>
 
                         <div class="shipping text-center"><!--shipping-->
                             <img src="/static/images/home/shipping.jpg" alt="">

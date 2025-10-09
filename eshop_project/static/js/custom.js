@@ -30,3 +30,22 @@ function fillParentId(parentId){
     // window.scrollTo({top:2500, behavior:'smooth'});
     document.getElementById('comment_form').scrollIntoView({behavior: "smooth"});
 }
+
+
+function filterProducts(){
+    // debugger;
+    const filterPrice = $('#sl2').val();
+    const start_price = filterPrice.split(',')[0];
+    const end_price = filterPrice.split(',')[1];
+    // console.log(start_price);
+    // console.log(end_price);
+    $('#start_price').val(start_price);
+    $('#end_price').val(end_price);
+    $('#filter_form').submit();
+}
+
+
+function fillPage(page){
+    $('#page').val(page);
+    $('#filter_form').submit();
+}
