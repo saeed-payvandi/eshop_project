@@ -453,7 +453,12 @@
                         {% render_partial 'product_module.views.product_brands_component' %}
 
                         <div class="shipping text-center"><!--shipping-->
-                            <img src="/static/images/home/shipping.jpg" alt="">
+                            {% for banner in banners %}
+                                <a href="{{ banner.url }}">
+                                    <img src="{{ banner.image.url }}" alt="">
+                                </a>
+                            {% endfor %}
+
                         </div><!--/shipping-->
 
                     </div>

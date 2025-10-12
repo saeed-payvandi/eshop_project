@@ -62,3 +62,29 @@ class Slider(models.Model):
         verbose_name = 'اسلایدر'
         verbose_name_plural = 'اسلایدر ها'
 
+
+# site_banner_positions = [
+#     ('product_list', 'صفحه لیست محصولات'),
+#     ('product_detail','صفحه جزییات محصولات'),
+# ]
+
+
+class SiteBanner(models.Model):
+    class SiteBannerPositions(models.TextChoices):
+        product_list = 'product_list', 'صفحه لیست محصولات'
+        product_detail = 'product_detail', 'صفحه جزییات محصولات'
+        about_us = 'about_us', 'درباره ما'
+
+    title = models.CharField(max_length=200, verbose_name='عنوان بنر')
+    url = models.URLField(max_length=400, null=True, blank=True, verbose_name='آدرس بنر')
+    image = models.ImageField(upload_to='images/banners', verbose_name='تصویر بنر')
+    is_active = models.BooleanField(verbose_name='فعال / غیر فعال')
+    position = models.CharField(max_length=200,choices=SiteBannerPositions.choices, verbose_name='جایگاه نمایشی')
+    # position = models.CharField(max_length=200, choices=site_banner_positions, verbose_name='جایگاه نمایشی')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'بنر تبلیغاتی'
+        verbose_name_plural = 'بنر های تبلیغاتی'
