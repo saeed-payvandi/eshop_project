@@ -37,8 +37,14 @@ class ProductBrandAdmin(admin.ModelAdmin):
     pass
 
 
+@admin.register(models.ProductVisit)
+class ProductVisitAdmin(admin.ModelAdmin):
+    pass
+
+
 # admin.site.register(models.Product, ProductAdmin)
 # admin.site.register(models.ProductCategory, ProductCategoryAdmin)
 # admin.site.register(models.ProductInformation)
 # admin.site.register(models.ProductTag)
 # admin.site.register(models.ProductBrand, ProductBrandAdmin)
+# admin.site.register(models.ProductVisit, ProductVisitAdmin)

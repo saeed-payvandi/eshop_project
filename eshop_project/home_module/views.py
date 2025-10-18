@@ -1,9 +1,13 @@
 from django.shortcuts import render
+from django.http import HttpRequest 
+from django.db.models import Count
 from django.views import View
 from django.views.generic.base import TemplateView
 from site_module.models import SiteSetting, FooterLinkBox, Slider
 from product_module.models import Product
 from utils.convertors import group_list
+from utils.http_service import get_client_ip
+
 
 # Create your views here.
 
@@ -24,9 +28,11 @@ class HomeView(TemplateView):
         slider = Slider.objects.filter(is_active=True)
         context['sliders'] = slider
         latest_products = Product.objects.filter(is_active=True, is_delete=False).order_by('-id')[:12]
+        most_visit_products = Product.objects.filter(is_active=True, is_delete=False).annotate(visit_count=Count('productvisit')).order_by('-visit_count')[:12]
         # print(latest_products)
         # print(group_list(latest_products, 1))
-        context['latest_products'] = group_list(latest_products, 1)
+        context['latest_products'] = group_list(latest_products, 4)
+        context['most_visit_products'] = group_list(most_visit_products, 4)
 
         return context
 

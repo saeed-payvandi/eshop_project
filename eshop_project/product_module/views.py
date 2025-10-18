@@ -3,8 +3,9 @@ from django.http import Http404, HttpRequest
 from django.db.models import Avg, Min, Max, Count
 from django.views.generic.base import TemplateView, View
 from django.views.generic import ListView, DetailView
-from .models import Product, ProductCategory, ProductBrand
+from .models import Product, ProductCategory, ProductBrand, ProductVisit
 from site_module.models import SiteBanner
+from utils.http_service import get_client_ip
 
 
 # Create your views here.
@@ -67,10 +68,18 @@ class ProductDetailView(DetailView):
         favorite_product_id = request.session.get('product_favorites')
         context['is_favorite'] = favorite_product_id == str(loaded_product.id)
         context['banners'] = SiteBanner.objects.filter(is_active=True, position=SiteBanner.SiteBannerPositions.product_detail)
+        # request: HttpRequest = self.request
+        # print(request.META.get('HTTP_X_FORWARDED_FOR'))
+        # print(request.META.get('REMOTE_ADDR'))
+        user_ip = get_client_ip(self.request)
+        user_id = None
+        if self.request.user.is_authenticated:
+            user_id = self.request.user.id
+        has_been_visited = ProductVisit.objects.filter(ip__iexact=user_ip, product_id=loaded_product.id).exists()
+        if not has_been_visited:
+            new_visit = ProductVisit(ip=user_ip, user_id=user_id, product_id=loaded_product.id)
+            new_visit.save()
         return context
-
-
-
 
 
 class AddProductFavorite(View):
