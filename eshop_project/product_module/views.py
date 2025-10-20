@@ -3,7 +3,7 @@ from django.http import Http404, HttpRequest
 from django.db.models import Avg, Min, Max, Count
 from django.views.generic.base import TemplateView, View
 from django.views.generic import ListView, DetailView
-from .models import Product, ProductCategory, ProductBrand, ProductVisit
+from .models import Product, ProductCategory, ProductBrand, ProductVisit, ProductTag
 from site_module.models import SiteBanner
 from utils.http_service import get_client_ip
 
@@ -112,6 +112,29 @@ def product_brands_component(request: HttpRequest):
         'brands': product_brands
     }
     return render(request, 'product_module/components/product_brands_component.html', context)
+
+
+# def product_database_relationship(request):
+#     category: ProductCategory = ProductCategory.objects.all()[0]
+#     print('category: ', category)
+#     brand: ProductBrand = ProductBrand.objects.all()[2]
+#     print('brand: ', brand)
+#     product: Product = Product.objects.all()[0]
+#     print('product: ', product)
+#     tag: ProductTag = ProductTag.objects.all()[0]
+#     print('tag: ', tag)
+#     visit: ProductVisit = ProductVisit.objects.all()[0]
+#     print('visit: ', visit)
+#     print('category.product_categories: ', category.product_categories.all())  # set relatedname:'product_categories'
+#     print('brand.product_set: ', brand.product_set.all())
+#     print('product.category: ', product.category.all())  # use .all() because relationship is manyTomany
+#     print('product.brand: ', product.brand)
+#     print('product.product_tags: ', product.product_tags.all())   # set realatedname: 'product_tags'
+#     print('product.productvisit_set: ', product.productvisit_set.all())
+#     print('tag.product: ', tag.product)
+#     print('visit.product: ', visit.product)
+#
+#     return redirect('home_page')
 
 
 # class ProductListView(TemplateView):

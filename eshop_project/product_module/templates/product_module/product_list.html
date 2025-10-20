@@ -15,7 +15,7 @@
                             <h2 class="title text-center">محصولات</h2>
 
                             {% for product in products %}
-                                {% include 'includes/product_item_partial.html' with product=product %}
+                                {% include 'includes/product_item_partial.html' with product=product col_size=4 %}
                             {% endfor %}
                             <div class="clearfix"></div>
 

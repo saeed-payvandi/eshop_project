@@ -1,5 +1,6 @@
 {% extends 'shared/_layout.html' %}
 {% load render_partial %}
+{% load poll_extras %}
 
 {% block title %}جزییات محصول{% endblock %}
 
@@ -67,7 +68,7 @@
                                 </div>
                                 <div>
 									<span>
-										<span>قیمت : {{ product.price }} تومان</span>
+										<span>قیمت : {{ product.price | three_digits_currency }} </span>
 									</span>
                                     <span>
                                         <form action="{% url 'product-favorite' %}" method="post">
