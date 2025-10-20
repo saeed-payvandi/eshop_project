@@ -5,6 +5,15 @@
 
 {% block title %}جزییات محصول{% endblock %}
 
+{% block header_references %}
+    <link rel="stylesheet" href="/static/lib/image-lightbox/css/lightbox.min.css">
+{% endblock %}
+
+{% block footer_references %}
+    <script src="/static/lib/image-lightbox/js/lightbox.min.js"></script>
+{#    <script src="/static/lib/image-lightbox/js/lightbox-plus-jquery.min.js"></script>#}
+{% endblock %}
+
 {% block content %}
 
     <section>
@@ -22,25 +31,33 @@
                         <div class="col-sm-5">
                             <div class="view-product">
                                 {% if product.image %}
-                                    <img src="{{ product.image.url }}" alt="">
+                                    <img src="{{ product.image.url }}" alt="" id="main_image">
                                 {% else %}
-                                    <img src="/static/images/product-details/1.jpg" alt="">
+                                    <img src="/static/images/product-details/1.jpg" alt="" id="main_image">
                                 {% endif %}
-                                <h3>بزرگنمایـی</h3>
+                                <h3>
+                                    <a id="show_large_image_modal" href="{{ product.image.url }}" data-lightbox="product-image">
+                                        بزرگنمایـی
+                                    </a>
+                                </h3>
                             </div>
                             <div id="similar-product" class="carousel slide" data-ride="carousel">
 
                                 <!-- Wrapper for slides -->
                                 <div class="carousel-inner">
+
+
                                     {% for group in product_galleries_group %}
                                         <div class="item {% if forloop.first %} active {% endif %}">
                                         {% for gallery in group %}
                                             {% thumbnail gallery.image "85x85" quality=90 crop='center' as im %}
-                                                <a href=""><img src="{{ im.url }}" alt=""></a>
+                                                <a onclick="showLargeImage('{{ gallery.image.url }}')"><img src="{{ im.url }}" alt=""></a>
                                             {% endthumbnail %}
                                         {% endfor %}
                                         </div>
                                     {% endfor %}
+
+
                                 </div>
 
                                 <!-- Controls -->
