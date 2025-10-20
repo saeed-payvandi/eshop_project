@@ -122,3 +122,15 @@ class ProductVisit(models.Model):
     class Meta:
         verbose_name = 'بازدید محصول'
         verbose_name_plural = 'بازدید های محصول'
+
+
+class ProductGallery(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name='محصول')
+    image = models.ImageField(upload_to='images/product-gallery', verbose_name='تصویر')
+
+    def __str__(self):
+        return self.product.title
+
+    class Meta:
+        verbose_name = 'تصویر گالری'
+        verbose_name_plural = 'گالری تصاویر'
