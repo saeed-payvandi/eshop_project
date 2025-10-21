@@ -7,7 +7,7 @@ from product_module.models import Product
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='کاربر')
-    id_paid = models.BooleanField(verbose_name='نهایی شده / نشده')
+    is_paid = models.BooleanField(verbose_name='نهایی شده / نشده')
     payment_date = models.DateField(null=True, blank=True, verbose_name='تاریخ پرداخت')
 
     def __str__(self):
