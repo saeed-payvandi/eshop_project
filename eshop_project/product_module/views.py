@@ -72,6 +72,7 @@ class ProductDetailView(DetailView):
         galleries = list(ProductGallery.objects.filter(product_id=loaded_product.id).all())
         galleries.insert(0, loaded_product)
         context['product_galleries_group'] = group_list(galleries, 3)
+        context['related_product'] = group_list(list(Product.objects.filter(brand_id=loaded_product.brand_id).exclude(pk=loaded_product.id).all()[:12]), 3)
         # request: HttpRequest = self.request
         # print(request.META.get('HTTP_X_FORWARDED_FOR'))
         # print(request.META.get('REMOTE_ADDR'))
