@@ -35,6 +35,7 @@ class ProductListView(ListView):
     def get_queryset(self):
         # print('query_set')
         query = super(ProductListView, self).get_queryset()
+        query = query.filter(is_active=True, is_delete=False)
         # print(self.kwargs)
         category_name = self.kwargs.get('cat')
         brand_name = self.kwargs.get('brand')
