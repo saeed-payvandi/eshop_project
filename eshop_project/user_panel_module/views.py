@@ -1,9 +1,11 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.http import HttpRequest
 from django.views import View
 from django.views.generic import TemplateView
 from account_module.models import User
+from order_module.models import Order, OrderDetail
 from django.contrib.auth import logout
 from .forms import EditProfileModelForm, ChangePasswordForm
 
@@ -66,5 +68,19 @@ class ChangePasswordPage(View):
         return render(request, 'user_panel_module/change_password_page.html', context)
 
 
+# @login_required
 def user_panel_menu_component(request: HttpRequest):
     return render(request, 'user_panel_module/components/user_panel_menu_component.html')
+
+
+def user_basket(request: HttpRequest):
+    current_order, created = Order.objects.prefetch_related('orderdetail_set').get_or_create(is_paid=False, user_id=request.user.id)
+    total_amount = 0
+    for order_detail in current_order.orderdetail_set.all():
+        total_amount += order_detail.product.price * order_detail.count
+
+    context = {
+        'order': current_order,
+        'sum': total_amount,
+    }
+    return render(request, 'user_panel_module/user_basket.html', context)

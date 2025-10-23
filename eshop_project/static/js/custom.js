@@ -102,3 +102,17 @@ function addProductToOrder(productId) {
     })
 }
 
+
+function up(id) {
+    let count = $('#count' + id).val();
+    count++
+    $('#count' + id).val(count);
+}
+
+
+function down(id) {
+    let count = $('#count' + id).val();
+    count--
+    $('#count' + id).val(count);
+}
+

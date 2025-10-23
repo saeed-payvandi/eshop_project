@@ -18,3 +18,8 @@ def three_digits_currency(value: int):
 #     return value.replace(arg, '')
 #
 # # register.filter('cut', cut)
+
+
+@register.simple_tag
+def multiply(quantity, price, *args, **kwargs):
+    return three_digits_currency(quantity * price)
