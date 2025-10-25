@@ -5,7 +5,8 @@
 {% block title %} سبد خرید {% endblock %}
 
 {% block content %}
-    <section id="cart_items">
+    <div id="order-detail-content">
+        <section id="cart_items">
         <div class="container">
             <div class="breadcrumbs">
                 <ol class="breadcrumb">
@@ -29,13 +30,13 @@
                     {% for detail in order.orderdetail_set.all %}
                         <tr>
                         <td class="cart_product">
-                            {% thumbnail detail.product.image "110x110" quality=90 crop='center' as im %}
+                            {% thumbnail detail.product.image "60x60" quality=90 crop='center' as im %}
                                 <a href=""><img src="{{ im.url}}" alt=""></a>
                             {% endthumbnail %}
                         </td>
                         <td class="cart_description">
-                            <h4><a href="">{{ detail.product.title }}</a></h4>
-                            <p>شناسـه : 01010101</p>
+                            <h4><a href="" class="one-line-text">{{ detail.product.title }}</a></h4>
+                            <p>شناسـه : {{ detail.id }}</p>
                         </td>
                         <td class="cart_price">
                             <p>{{ detail.product.price|three_digits_currency }}</p>
@@ -53,7 +54,7 @@
 {#                            <p class="cart_total_price">{{ detail.get_total_price|three_digits_currency }}</p>#}
                         </td>
                         <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
+                            <a class="cart_quantity_delete" onclick="removeOrderDetail({{ detail.id }})"><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
                     {% endfor %}
@@ -63,8 +64,7 @@
             </div>
         </div>
     </section> <!--/#cart_items-->
-
-    <section id="do_action">
+        <section id="do_action">
         <div class="container">
             <div class="heading">
                 <h3>نهایی کردن سفارش یا ادامه خریـد ؟! </h3>
@@ -83,4 +83,5 @@
             </div>
         </div>
     </section><!--/#do_action-->
+    </div>
 {% endblock %}
