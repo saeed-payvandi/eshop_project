@@ -39,11 +39,10 @@
                             </td>
                             <td class="cart_quantity">
                                 <div class="cart_quantity_button">
-                                    <a onclick="up({{ detail.product.id }})" class="cart_quantity_up"> + </a>
-                                    <input id='count{{ detail.product.id }}' class="cart_quantity_input" type="text"
-                                           name="quantity" value="{{ detail.count }}"
+                                    <a onclick="changeOrderDetailCount({{ detail.id }}, 'increase')" class="cart_quantity_up cursor-pointer"> + </a>
+                                    <input class="cart_quantity_input" type="text" name="quantity" value="{{ detail.count }}"
                                            autocomplete="off" size="2">
-                                    <a onclick="down({{ detail.product.id }})" class="cart_quantity_down"> - </a>
+                                    <a onclick="changeOrderDetailCount({{ detail.id }}, 'decrease')" class="cart_quantity_down cursor-pointer"> - </a>
                                 </div>
                             </td>
                             <td class="cart_total">
