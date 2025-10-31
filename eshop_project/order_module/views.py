@@ -1,9 +1,23 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse, JsonResponse
 from product_module.models import Product
 from .models import Order, OrderDetail
+import requests
+import json
 
 # Create your views here.
+
+MERCHANT = '4a7b2eff-96ed-48cd-91a0-99d80b6ec795'
+ZP_API_REQUEST = 'https://api.zarinpal.com/pg/v4/payment/request.json'
+ZP_API_VERIFY = 'https://api.zarinpal.com/pg/v4/payment/verify.json'
+ZP_API_STARTPAY = 'https://api.zarinpal.com/pg/StartPay/{authority}'
+amount = 11000 # Rials / Required
+description = 'تهایی کردن خرید شما از سایت ما' # Required
+email = '' # Optional
+mobile = '' # Optional
+# Important: need to edit for really server
+CallbackURL = 'http://localhost:8000/order/verify-payment/'
+
 
 
 def add_product_to_order(request: HttpRequest):
@@ -51,3 +65,48 @@ def add_product_to_order(request: HttpRequest):
             'icon': 'error',
             'confirm_button_text': 'ورود به سایت',
         })
+
+
+def request_payment(request: HttpRequest):
+    req_data = {
+        "merchant_id": MERCHANT,
+        "amount": amount,
+        "callback_url": CallbackURL,
+        "description": description,
+        "metadata": {"email": email, "mobile": mobile}
+    }
+    req_header = {"accept": "application/json", "content-type": "application/json'"}
+    req = requests.post(url=ZP_API_REQUEST, data=json.dumps(req_data), headers=req_header)
+    authority = req.json()['data']['authority']
+    if len(req.json()['errors']) == 0:
+        return redirect(ZP_API_STARTPAY.format(authority=authority))
+    else:
+        e_code = req.json()['errors']['code']
+        e_message = req.json()['errors']['message']
+        return HttpResponse(f"Error Code: {e_code}, Error Message: {e_message}")        
+
+
+def verify_payment(request: HttpRequest):
+    t_authority = request.GET['Authority']
+    if request.GET.get('Status' == 'OK'):
+        req_header = {"accept": "application/json", "content-type": "application/json'"}
+        req_data = {
+            "merchant_id": MERCHANT,
+            "amount": amount,
+            "authority": t_authority,
+        }
+        req = request.post(url=ZP_API_VERIFY, data=json.dumps(req_data), headers=req_header)
+        if len(req.json()['errors'] == 0):
+            t_status = req.json()['data']['code']
+            if t_status == 100:
+                return HttpResponse('Transation succes.\nRefID: ' + str(req.json()['data']['ref_id']))
+            elif t_status == 101:
+                return HttpResponse('Transaction submitted : ' + str(req.json()['data']['message']))
+            else:
+                return HttpResponse('Transaction failed.\nStatus : ' + str(req.json()['data']['message']))
+        else:
+            e_code = req.json()['errors']['code']
+            e_message = req.json()['errors']['message']
+            return HttpResponse(f"Error Code: {e_code}, Error Message: {e_message}")
+    else:
+        return HttpResponse('Transaction failed or canceled by user')
