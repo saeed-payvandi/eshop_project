@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.http import HttpRequest, JsonResponse
 from django.template.loader import render_to_string
 from django.views import View
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from account_module.models import User
 from order_module.models import Order, OrderDetail
 from django.contrib.auth import logout
@@ -72,6 +72,15 @@ class ChangePasswordPage(View):
         }
         return render(request, 'user_panel_module/change_password_page.html', context)
 
+
+@method_decorator(login_required, name='dispatch')
+class MyShopping(ListView):
+    model = Order
+    template_name = 'user_panel_module/user_shopping.html'
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset
 
 @login_required
 def user_panel_menu_component(request: HttpRequest):
