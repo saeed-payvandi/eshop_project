@@ -1,5 +1,6 @@
 {% extends 'shared/_layout.html' %}
 {% load render_partial %}
+{% load poll_extras %}
 
 {% block title %}لیست خرید های من{% endblock %}
 
@@ -10,6 +11,23 @@
                 {% render_partial 'user_panel_module.views.user_panel_menu_component' %}
             </div>
             <div class="col-md-8">
+                <table class="table table-responsive table-hover table-striped">
+                    <tr>
+                        <th class="text-right">شناسه</th>
+                        <th class="text-right">تاریخ تایید فاکتور</th>
+                        <th class="text-right">قیمت نهایی خرید</th>
+                        <th class="text-right">دستورات</th>
+                    </tr>
+                    {% for order in object_list %}
+                        <tr>
+                        <td>{{ order.id }}</td>
+                        <td>{{ order.payment_date | show_jalali_date }}</td>
+                        <td>{{ order.calculate_total_price | three_digits_currency }}</td>
+                        <td><a href="#">جزییات</a></td>
+                        </tr>
+                    {% endfor %}
+
+                </table>
             </div>
         </div>
     </div>

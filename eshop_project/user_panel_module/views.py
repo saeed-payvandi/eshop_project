@@ -80,6 +80,8 @@ class MyShopping(ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
+        request: HttpRequest = self.request
+        queryset = queryset.filter(user_id=request.user.id, is_paid=True)
         return queryset
 
 @login_required
