@@ -20,10 +20,10 @@
                     </tr>
                     {% for order in object_list %}
                         <tr>
-                        <td>{{ order.id }}</td>
-                        <td>{{ order.payment_date | show_jalali_date }}</td>
-                        <td>{{ order.calculate_total_price | three_digits_currency }}</td>
-                        <td><a href="#">جزییات</a></td>
+                        <td class="text-right">{{ order.id }}</td>
+                        <td class="text-right">{{ order.payment_date | show_jalali_date }}</td>
+                        <td class="text-right">{{ order.calculate_total_price | three_digits_currency }}</td>
+                        <td class="text-right"><a class="btn btn-success" href="{% url 'user_shopping_detail_page' order_id=order.id %}">جزییات</a></td>
                         </tr>
                     {% endfor %}
 

@@ -36,7 +36,10 @@ class OrderDetail(models.Model):
     count = models.IntegerField(verbose_name='تعداد')
 
     def get_total_price(self):
-        return self.count * self.product.price
+        if self.order.is_paid:
+            return self.count * self.final_price
+        else:
+            return self.count * self.product.price
 
     def __str__(self):
         return str(self.order)

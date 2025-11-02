@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.http import HttpRequest, JsonResponse
+from django.http import HttpRequest, JsonResponse, Http404
 from django.template.loader import render_to_string
 from django.views import View
 from django.views.generic import TemplateView, ListView
@@ -81,7 +81,7 @@ class MyShopping(ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         request: HttpRequest = self.request
-        queryset = queryset.filter(user_id=request.user.id, is_paid=True)
+        queryset = queryset.filter(user_id=request.user.id, is_paid=True).order_by('payment_date')
         return queryset
 
 @login_required
@@ -173,6 +173,18 @@ def change_order_detail_count(request: HttpRequest):
         'status': 'success',
         'body': data,
     })
+
+
+@login_required
+def my_shopping_detail(request: HttpRequest, order_id):
+    order = Order.objects.prefetch_related('orderdetail_set').filter(id=order_id, user_id=request.user.id).first()
+    if order is None:
+        raise Http404('سبد مورد نظر یافت نشد')
+
+    context = {
+        'order': order,
+    }
+    return render(request, 'user_panel_module/user_shopping_detail.html', context)
 
 
 
