@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpRequest 
-from django.db.models import Count
+from django.db.models import Count, Sum
 from django.views import View
 from django.views.generic.base import TemplateView
 from site_module.models import SiteSetting, FooterLinkBox, Slider
@@ -26,13 +26,18 @@ class HomeView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         slider = Slider.objects.filter(is_active=True)
-        context['sliders'] = slider
         latest_products = Product.objects.filter(is_active=True, is_delete=False).order_by('-id')[:12]
         most_visit_products = Product.objects.filter(is_active=True, is_delete=False).annotate(visit_count=Count('productvisit')).order_by('-visit_count')[:12]
+        most_bought_products = Product.objects.filter(orderdetail__order__is_paid=True,is_active=True, is_delete=False).annotate(order_count=Sum('orderdetail__count')).order_by('-order_count')[:12]
+        # for product in most_bought_product:
+        #     print(f'{product.order_count} - {product.title}')       
+        
         # print(latest_products)
         # print(group_list(latest_products, 1))
+        context['sliders'] = slider
         context['latest_products'] = group_list(latest_products, 4)
         context['most_visit_products'] = group_list(most_visit_products, 4)
+        context['most_bought_products'] = group_list(most_bought_products, 4)
 
         categories = list(ProductCategory.objects.annotate(product_count=Count('product_categories')).filter(is_active=True, is_delete=False, product_count__gt=0)[:6])
         categories_products = []
@@ -47,7 +52,7 @@ class HomeView(TemplateView):
         # print(categories_products)
 
         context['categories_products'] = categories_products
-
+        
         return context
 
 
