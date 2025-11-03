@@ -28,6 +28,7 @@ urlpatterns = [
     path('articles/', include('article_module.urls')),
     path('user/', include('user_panel_module.urls')),
     path('order/', include('order_module.urls')),
+    path('admin-panel/', include('admin_panel.urls')),
     path('admin/', admin.site.urls),
 ]
 
