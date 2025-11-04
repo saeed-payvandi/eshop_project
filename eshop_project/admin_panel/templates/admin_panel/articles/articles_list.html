@@ -1,6 +1,6 @@
 {% extends 'admin_panel/shared/_admin_layout.html' %}
 
-{% block title %}صفحه اصلی ادمین{%endblock%}
+{% block title %}صفحه مقالات{%endblock%}
 
 {% block content %}
     <div class="row">
@@ -23,7 +23,7 @@
                         {% endif %}
                     </td>
                     <td>
-                        <a href="" class="btn btn-warning">ویرایش مقاله</a>
+                        <a href="{% url 'admin_edit_article' pk=article.id %}" class="btn btn-warning">ویرایش مقاله</a>
                     </td>
                 </tr>
                 {% endfor%}
