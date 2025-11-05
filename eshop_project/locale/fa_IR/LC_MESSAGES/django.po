@@ -1,0 +1,67 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-11-05 21:27+0100\n"
+"PO-Revision-Date: 2025-11-05 22:24+0000\n"
+"Last-Translator:   <saeed@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Translated-Using: django-rosetta 0.10.2\n"
+
+#: .\home_module\views.py:56
+msgid "this text comes here for multi languages test"
+msgstr "این متن برای تست چند زبانه بودن اینجا آمده است"
+
+#: .\templates\shared\site_header_component.html:52
+msgid "AdminPanel"
+msgstr "پنل ادمین"
+
+#: .\templates\shared\site_header_component.html:54
+msgid "Cart"
+msgstr "سبد خرید"
+
+#: .\templates\shared\site_header_component.html:55
+msgid "UserPanel"
+msgstr "پنل کاربری"
+
+#: .\templates\shared\site_header_component.html:56
+msgid "Exit"
+msgstr "خروج"
+
+#: .\templates\shared\site_header_component.html:58
+msgid "SignUp"
+msgstr "ثبت نام"
+
+#: .\templates\shared\site_header_component.html:59
+msgid "SignIn"
+msgstr "ورود"
+
+#: .\templates\shared\site_header_component.html:89
+msgid "Home"
+msgstr "خانه"
+
+#: .\templates\shared\site_header_component.html:90
+msgid "Products"
+msgstr "محصولات"
+
+#: .\templates\shared\site_header_component.html:91
+msgid "Articles"
+msgstr "مقالات"
+
+#: .\templates\shared\site_header_component.html:92
+msgid "AboutUs"
+msgstr "درباره ما"
+
+#: .\templates\shared\site_header_component.html:93
+msgid "ContactUs"
+msgstr "تماس با ما"

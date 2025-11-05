@@ -7,6 +7,7 @@ from site_module.models import SiteSetting, FooterLinkBox, Slider
 from product_module.models import Product, ProductCategory
 from utils.convertors import group_list
 from utils.http_service import get_client_ip
+from django.utils.translation import gettext_lazy as _
 
 
 # Create your views here.
@@ -52,6 +53,7 @@ class HomeView(TemplateView):
         # print(categories_products)
 
         context['categories_products'] = categories_products
+        context['data'] = _('this text comes here for multi languages test')
         
         return context
 
