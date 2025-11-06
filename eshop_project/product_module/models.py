@@ -2,6 +2,7 @@
 from django.db import models
 from django.urls import reverse
 from account_module.models import User
+from django.utils.translation import gettext_lazy as _
 # from django.utils.text import slugify
 
 
@@ -48,7 +49,7 @@ class ProductBrand(models.Model):
 
 
 class Product(models.Model):
-    title = models.CharField(max_length=300, verbose_name='نام محصول')
+    title = models.CharField(max_length=300, verbose_name=_('Title'))
     # product_information = models.OneToOneField(
     #     ProductInformation,
     #     on_delete=models.CASCADE,
@@ -72,10 +73,10 @@ class Product(models.Model):
     category = models.ManyToManyField(ProductCategory, related_name='product_categories', verbose_name='دسته بندی ها')
     # product_tags = models.ManyToManyField(ProductTag, verbose_name='تگ های محصول')
     image = models.ImageField(upload_to='images/products', null=True, blank=True, verbose_name='تصویر مجصول')
-    price = models.IntegerField(verbose_name='قیمت')
+    price = models.IntegerField(verbose_name=_('Price'))
     # rating = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)], default=0)
     short_description = models.CharField(max_length=360, db_index=True, null=True, verbose_name='توضیحات کوتاه')
-    description = models.TextField(verbose_name='توضیحات اصلی', db_index=True)
+    description = models.TextField(verbose_name=_('Description'), db_index=True)
     slug = models.SlugField(max_length=200, default="", null=False, blank=True, unique=True, verbose_name='عنوان در url')  # default=> db_index=True & max_length=50
     # slug = models.SlugField(default="", null=False, db_index=True, blank=True, editable=False)
     is_active = models.BooleanField(default=False, verbose_name='فعال / غیر فعال')
@@ -95,8 +96,8 @@ class Product(models.Model):
         return f"{self.title}"
 
     class Meta:
-        verbose_name = 'محصول'
-        verbose_name_plural = 'محصولات'
+        verbose_name = _('Product')
+        verbose_name_plural = _('Products')
 
 
 class ProductTag(models.Model):

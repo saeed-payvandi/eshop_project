@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-05 21:27+0100\n"
-"PO-Revision-Date: 2025-11-05 22:24+0000\n"
-"Last-Translator:   <saeed@gmail.com>\n"
+"POT-Creation-Date: 2025-11-06 13:15+0100\n"
+"PO-Revision-Date: 2025-11-06 09:52+0000\n"
+"Last-Translator: سعید 1 پیوندی <saeed1@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -21,6 +21,27 @@ msgstr ""
 #: .\home_module\views.py:56
 msgid "this text comes here for multi languages test"
 msgstr "این متن برای تست چند زبانه بودن اینجا آمده است"
+
+#: .\product_module\models.py:52
+msgid "Title"
+msgstr "عنوان"
+
+#: .\product_module\models.py:76
+msgid "Price"
+msgstr "قیمت"
+
+#: .\product_module\models.py:79
+msgid "Description"
+msgstr "توضیحات"
+
+#: .\product_module\models.py:99
+msgid "Product"
+msgstr "محصول"
+
+#: .\product_module\models.py:100
+#: .\templates\shared\site_header_component.html:90
+msgid "Products"
+msgstr "محصولات"
 
 #: .\templates\shared\site_header_component.html:52
 msgid "AdminPanel"
@@ -49,10 +70,6 @@ msgstr "ورود"
 #: .\templates\shared\site_header_component.html:89
 msgid "Home"
 msgstr "خانه"
-
-#: .\templates\shared\site_header_component.html:90
-msgid "Products"
-msgstr "محصولات"
 
 #: .\templates\shared\site_header_component.html:91
 msgid "Articles"

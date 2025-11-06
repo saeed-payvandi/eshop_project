@@ -13,7 +13,7 @@ class ProductAdmin(admin.ModelAdmin):
     # list_filter = ['rating', 'is_active']
     # list_editable = ['rating', 'is_active']
     list_filter = ['category', 'is_active']
-    list_display = ['title', 'price', 'is_active', 'is_delete']
+    list_display = ['__str__', 'title', 'price', 'is_active', 'is_delete']
     list_editable = ['price', 'is_active']
 
 

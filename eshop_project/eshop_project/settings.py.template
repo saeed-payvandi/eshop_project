@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'jalali_date',
     'widget_tweaks',
     'rosetta',
+    'modeltranslation',
 ]
 
 MIDDLEWARE = [
